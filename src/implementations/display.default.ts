@@ -37,39 +37,117 @@ export class DefaultDisplay implements IDisplay {
                 }
             }
 
+            console.log("Rendering display type:", displayTemplate[i].type)
+            console.log("Rendering display object:", displayTemplate[i])
             switch(displayTemplate[i].type) {
                 case "text":
-                    displayTemplate[i].text= this.parseString(displayTemplate[i].text, instance.state_data);
-                    break;
                 case "title":
-                    displayTemplate[i].text= this.parseString(displayTemplate[i].text, instance.state_data);
-                    break;
-                case "warning":
-                    displayTemplate[i].text= this.parseString(displayTemplate[i].text, instance.state_data);
-                    break;
                 case "information":
-                    displayTemplate[i].text= this.parseString(displayTemplate[i].text, instance.state_data);
-                    break;
+                case "warning":
+                case "error":
                 case "quote":
+                case "pass":
+                case "fail":
+                case "control":
                     displayTemplate[i].text= this.parseString(displayTemplate[i].text, instance.state_data);
                     break;
                 case "text-field":
-                    displayTemplate[i].value= this.parseString(displayTemplate[i].value, instance.state_data);
-                    break;
                 case "text-area":
-                    displayTemplate[i].value= this.parseString(displayTemplate[i].value, instance.state_data);
-                    break;
                 case "drop-down":
                     displayTemplate[i].value= this.parseString(displayTemplate[i].value, instance.state_data);
                     break;
                 case "radio-button":
-                    displayTemplate[i].default= this.parseString(displayTemplate[i].value, instance.state_data);
-                    break;
                 case "check-box":
                     displayTemplate[i].default= this.parseString(displayTemplate[i].value, instance.state_data);
                     break;
-                case "control":
+                case "image":
+                    displayTemplate[i].url= this.parseString(displayTemplate[i].url, instance.state_data);
+                    break;
+                case "button":
+                    displayTemplate[i].label= this.parseString(displayTemplate[i].label, instance.state_data);
+                    break;
+                case "dial":
                     displayTemplate[i].text= this.parseString(displayTemplate[i].text, instance.state_data);
+                    displayTemplate[i].number= this.parseString(displayTemplate[i].number, instance.state_data);
+                    break;
+                case "calendar":
+                    displayTemplate[i].text= this.parseString(displayTemplate[i].text, instance.state_data);
+                    displayTemplate[i].title= this.parseString(displayTemplate[i].title, instance.state_data);
+                    displayTemplate[i].start= this.parseString(displayTemplate[i].start, instance.state_data);
+                    displayTemplate[i].end= this.parseString(displayTemplate[i].end, instance.state_data);
+                    displayTemplate[i].location= this.parseString(displayTemplate[i].location, instance.state_data);
+                    displayTemplate[i].notes= this.parseString(displayTemplate[i].notes, instance.state_data);
+                    displayTemplate[i].url= this.parseString(displayTemplate[i].url, instance.state_data);
+                    break;
+                case "map":
+                    displayTemplate[i].text= this.parseString(displayTemplate[i].text, instance.state_data);
+                    displayTemplate[i].title= this.parseString(displayTemplate[i].title, instance.state_data);
+                    displayTemplate[i].longitude= this.parseString(displayTemplate[i].longitude, instance.state_data);
+                    displayTemplate[i].latitude= this.parseString(displayTemplate[i].latitude, instance.state_data);
+                    break;
+                case "video":
+                    displayTemplate[i].label= this.parseString(displayTemplate[i].label, instance.state_data);
+                    displayTemplate[i]['video-url']= this.parseString(displayTemplate[i]['video-url'], instance.state_data);
+                    break;
+                case "multiple-choice":
+                    displayTemplate[i].question= this.parseString(displayTemplate[i].question, instance.state_data);
+                    displayTemplate[i].answers.forEach(element => {
+                        element.option = this.parseString(element.option, instance.state_data);
+                        element.value = this.parseString(element.value, instance.state_data);
+                    });
+                    break;
+                case "slider":
+                    displayTemplate[i].label= this.parseString(displayTemplate[i].label, instance.state_data);
+                    displayTemplate[i].min= this.parseString(displayTemplate[i].min, instance.state_data);
+                    displayTemplate[i].max= this.parseString(displayTemplate[i].max, instance.state_data);
+                    displayTemplate[i].value= this.parseString(displayTemplate[i].value, instance.state_data);
+                    break;
+                case "bar-chart":
+                    displayTemplate[i].title= this.parseString(displayTemplate[i].title, instance.state_data);
+                    displayTemplate[i].bars.forEach(element => {
+                        console.log("####### ", element);
+                        element.label = this.parseString(element.label, instance.state_data);
+                        element.count = this.parseString(element.count, instance.state_data);
+                    });
+                    break;
+                case "pie-chart":
+                case "donut-chart":
+                    displayTemplate[i].title= this.parseString(displayTemplate[i].title, instance.state_data);
+                    displayTemplate[i].slices.forEach(element => {
+                        element.label = this.parseString(element.label, instance.state_data);
+                        element.count = this.parseString(element.count, instance.state_data);
+                    });
+                    break;
+                case "basic-table":
+                    displayTemplate[i].title= this.parseString(displayTemplate[i].title, instance.state_data);
+                    displayTemplate[i].header.forEach(header => {
+                        for(let element in header) {
+                            header[element] = this.parseString(header[element], instance.state_data);
+                        };
+                    });
+                    displayTemplate[i].rows.forEach(row => {
+                        for(let field in row) {
+                            row[field] = this.parseString(row[field], instance.state_data);
+                        };
+                    });
+                    break;
+                case "gauge":
+                    displayTemplate[i].title= this.parseString(displayTemplate[i].title, instance.state_data);
+                    displayTemplate[i].min= this.parseString(displayTemplate[i].min, instance.state_data);
+                    displayTemplate[i].max= this.parseString(displayTemplate[i].max, instance.state_data);
+                    displayTemplate[i].value= this.parseString(displayTemplate[i].value, instance.state_data);
+                    break;
+                case "card":
+                    displayTemplate[i].title= this.parseString(displayTemplate[i].title, instance.state_data);
+                    displayTemplate[i].text= this.parseString(displayTemplate[i].text, instance.state_data);
+                    break;
+                case "timeline":
+                    displayTemplate[i].title= this.parseString(displayTemplate[i].title, instance.state_data);
+                    displayTemplate[i].entries.forEach(entry => {
+                        for(let field in entry) {
+                            entry[field] = this.parseString(entry[field], instance.state_data);
+                        };
+                    });
                     break;
             }
             displayData.displayData.push(displayTemplate[i]);

@@ -28,17 +28,17 @@
                         },
                         {
                             "type": "button",
-                            "text": "Next button",
+                            "label": "Next button",
                             "action_id": "nextButton"
                         },
                         {
                             "type": "button",
-                            "text": "Data button",
+                            "label": "Data button",
                             "action_id": "dataButton"
                         },
                         {
                             "type": "button",
-                            "text": "Workflow button",
+                            "label": "Workflow button",
                             "action_id": "workflowButton"
                         }
                     ],
@@ -77,7 +77,7 @@
                         },
                         {
                             "type": "button",
-                            "text": "Go back",
+                            "label": "Go back",
                             "action_id": "backButton"
                         }
                     ],
@@ -113,18 +113,84 @@
                         },
                         {
                             "type": "button",
-                            "text": "Save Data",
+                            "label": "Save Data",
                             "action_id": "saveButton"
                         },
                         {
                             "type": "button",
-                            "text": "State Data",
+                            "label": "State Data",
                             "action_id": "stateButton"
                         },
                         {
                             "type": "button",
-                            "text": "Extension",
+                            "label": "Extension",
                             "action_id": "extensionButton"
+                        },
+                        {
+                        "form": "Test Form",
+                        "type": "multiple-choice",
+                        "question": "This is the question title {Date}",
+                        "form-id": "question",
+                        "answers": [
+                                {"option": "a. {Date} to get to the other side", "value": "A" },
+                                {"option": "{Date}", "value": "B"},
+                                {"option": "c. better view of the mountains", "value": "{Date}"}
+                            ]
+                        },
+                        {
+                            "type": "bar-chart",
+                            "title": "Lunch survey results {Date}",
+                            "bars": [
+                                {"label": "{Date}", "count": "{Date}" },
+                                {"label": "French cafe", "count": "14"},
+                                {"label": "Pizza parlour", "count": "72"}
+                            ]
+                        },
+                        {
+                            "type": "donut-chart",
+                            "title": "Lunch survey {Date} results",
+                            "slices": [
+                                {"label": "Chicken restaurant", "count": "53"},
+                                {"label": "{Date} cafe", "count": "14"},
+                                {"label": "Pizza parlour", "count": "{Date}"}
+                            ]
+                        },
+                        {
+                            "type": "basic-table",
+                            "title": "Menu {Date}",
+                            "border": true,
+                            "header": [
+                                {"column1": "Name {Date}", "order": "1" },
+                                {"column1": "Description", "order": "2" },
+                                {"column1": "Price", "order": "3" }
+                            ],
+                            "rows": [
+                                {"column1": "Salad", "column2": "Lettuce and tomato", "column3": "$5.99"},
+                                {"column1": "Meat {Date}", "column2": "Ham {Date}", "column3": "$15.99"},
+                                {"column1": "Cake", "column2": "Chocolate", "column3": "{Date}"}
+                            ]
+                        },
+                        {
+                            "type": "gauge",
+                            "title": "Progress {Date}",
+                            "value": "{Date}",
+                            "min": "{Date}",
+                            "max": "{Date}"
+                        },
+                        {
+                            "type": "card",
+                            "title": "Special {Date}",
+                            "text": "This is the text that appears in a card {Date}."
+                        },
+                        {
+                            "type": "timeline",
+                            "title": "Roadmap to the {Date} future",
+                            "entries": [
+                                {"order": "1", "entry": "Day 1 {Date} ", "text": "Write a {Date} list"},
+                                {"order": "2", "entry": "{Date}", "text": "{Date}"},
+                                {"order": "3", "entry": "Year 2", "text": "Check off the tasks"},
+                                {"order": "4", "entry": "Year 3", "text": "Bask in glory"}
+                            ]
                         },
                         {
                             "form": "Save Form",
@@ -142,7 +208,7 @@
                         },                        
                         {
                             "type": "button",
-                            "text": "Go back",
+                            "label": "Go back",
                             "action_id": "backButton"
                         }
                     ],
@@ -196,12 +262,12 @@
                         },
                         {
                             "type": "button",
-                            "text": "Go home workflow",
+                            "label": "Go home workflow",
                             "action_id": "homeButton"
                         },
                         {
                             "type": "button",
-                            "text": "No action button",
+                            "label": "No action button",
                             "action_id": "noactionButton"
                         }
 

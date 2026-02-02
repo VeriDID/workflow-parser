@@ -122,14 +122,402 @@ it('Get the default state from the workflow', async () => {
     await setup();
     console.log("*** Start test");
     const display = await testParser.parse("TestPersonID", {workflowID: "root-menu", actionID: "", data: {} });    
-    expect(display).toStrictEqual({"displayData": [{"type": "image", "url": "http://image.com/image.png"}, {"display": "title", "text": "This is the test for workflow", "type": "text"}, {"condition": "instance?.state_data?.first==undefined", "text": "First time showing this page", "type": "text"}, {"action_id": "nextButton", "text": "Next button", "type": "button"}, {"action_id": "dataButton", "text": "Data button", "type": "button"}, {"action_id": "workflowButton", "text": "Workflow button", "type": "button"}], "workflowID": "root-menu"});
+    expect(display).toStrictEqual({"displayData": [{"type": "image", "url": "http://image.com/image.png"}, {"display": "title", "text": "This is the test for workflow", "type": "text"}, {"condition": "instance?.state_data?.first==undefined", "text": "First time showing this page", "type": "text"}, {"action_id": "nextButton", "label": "Next button", "type": "button"}, {"action_id": "dataButton", "label": "Data button", "type": "button"}, {"action_id": "workflowButton", "label": "Workflow button", "type": "button"}], "workflowID": "root-menu"});
 });
 
 it('Got to page1', async () => {
     const display = await testParser.parse("TestPersonID", {workflowID: "root-menu", actionID: "nextButton", data: {} });
-    expect(display).toStrictEqual({"displayData": [{"type": "image", "url": "http://image.com/image.png"}, {"display": "title", "text": "This is the test for workflow", "type": "text"}, {"condition": "instance?.state_data?.first==undefined", "text": "First time showing this page", "type": "text"}, {"action_id": "nextButton", "text": "Next button", "type": "button"}, {"action_id": "dataButton", "text": "Data button", "type": "button"}, {"action_id": "workflowButton", "text": "Workflow button", "type": "button"}], "workflowID": "root-menu"});
+    expect(display).toStrictEqual({"displayData": [{"type": "text", "text": "This is the page for testing state transitions."}, {"type": "button", "label": "Go back", "action_id": "backButton"}], "workflowID": "root-menu"});
 });
 
+it('return from Page1 to menu', async () => {
+    console.log("~~~ Start Test 3 - return from Page1 to menu");
+    const display = await testParser.parse("TestPersonID", {workflowID: "root-menu", actionID: "backButton", data: {} });
+    expect(display).toStrictEqual({"displayData": [{"type": "image", "url": "http://image.com/image.png"}, {"display": "title", "text": "This is the test for workflow", "type": "text"}, {"action_id": "nextButton", "label": "Next button", "type": "button"}, {"action_id": "dataButton", "label": "Data button", "type": "button"}, {"action_id": "workflowButton", "label": "Workflow button", "type": "button"}], "workflowID": "root-menu"});
+});
+
+it('go to page 2', async () => {
+    console.log("~~~ Start Test 4 - go to page 2");
+    const display = await testParser.parse("TestPersonID", {workflowID: "root-menu", actionID: "dataButton", data: {} });
+    expect(display).toStrictEqual({"displayData": [{
+                            "type": "text",
+                            "display": "title",
+                            "text": "This is the page for testing data."
+                        },
+                        {
+                            "type": "extended",
+                            "text": "Extended display render!!"
+                        },
+                        {
+                            "type": "button",
+                            "label": "Save Data",
+                            "action_id": "saveButton"
+                        },
+                        {
+                            "type": "button",
+                            "label": "State Data",
+                            "action_id": "stateButton"
+                        },
+                        {
+                            "type": "button",
+                            "label": "Extension",
+                            "action_id": "extensionButton"
+                        },
+                        {
+                            "answers": [
+                                {
+                                "option": "a.  to get to the other side",
+                                "value": "A",
+                                },
+                                {
+                                "option": "",
+                                "value": "B",
+                                },
+                                {
+                                "option": "c. better view of the mountains",
+                                "value": "",
+                                },
+                            ],
+                            "form": "Test Form",
+                            "form-id": "question",
+                            "question": "This is the question title ",
+                            "type": "multiple-choice",
+                        },
+                        {
+                            "type": "bar-chart",
+                            "title": "Lunch survey results ",
+                            "bars": [
+                                {"label": "", "count": "" },
+                                {"label": "French cafe", "count": "14"},
+                                {"label": "Pizza parlour", "count": "72"}
+                            ]
+                        },
+                        {
+                            "type": "donut-chart",
+                            "title": "Lunch survey  results",
+                            "slices": [
+                                {"label": "Chicken restaurant", "count": "53"},
+                                {"label": " cafe", "count": "14"},
+                                {"label": "Pizza parlour", "count": ""}
+                            ]
+                        },
+                        {
+                            "type": "basic-table",
+                            "title": "Menu ",
+                            "border": true,
+                            "header": [
+                                {"column1": "Name ", "order": "1" },
+                                {"column1": "Description", "order": "2" },
+                                {"column1": "Price", "order": "3" }
+                            ],
+                            "rows": [
+                                {"column1": "Salad", "column2": "Lettuce and tomato", "column3": "$5.99"},
+                                {"column1": "Meat ", "column2": "Ham ", "column3": "$15.99"},
+                                {"column1": "Cake", "column2": "Chocolate", "column3": ""}
+                            ]
+                        },  
+                        {
+                            "type": "gauge",
+                            "title": "Progress ",
+                            "value": "",
+                            "min": "",
+                            "max": ""
+                        },
+                        {
+                            "type": "card",
+                            "title": "Special ",
+                            "text": "This is the text that appears in a card ."
+                        },
+                        {
+                            "type": "timeline",
+                            "title": "Roadmap to the  future",
+                            "entries": [
+                                {"order": "1", "entry": "Day 1  ", "text": "Write a  list"},
+                                {"order": "2", "entry": "", "text": ""},
+                                {"order": "3", "entry": "Year 2", "text": "Check off the tasks"},
+                                {"order": "4", "entry": "Year 3", "text": "Bask in glory"}
+                            ]
+                        },                                                                                              
+                        {
+                            "form": "Save Form",
+                            "type": "text-field",
+                            "label": "Field one",
+                            "value": "",
+                            "form-id": "save-field"
+                        },                        
+                        {
+                            "form": "Save Form",
+                            "type": "text-field",
+                            "label": "Field two",
+                            "value": "",
+                            "form-id": "save-field2"
+                        },                        
+                        {
+                            "type": "button",
+                            "label": "Go back",
+                            "action_id": "backButton"
+                        }
+], "workflowID": "root-menu"});
+});
+
+it('save fixed data', async () => {
+    console.log("~~~ Start Test 5 - save fixed data");
+    const display = await testParser.parse("TestPersonID", {workflowID: "root-menu", actionID: "saveButton", data: {"save-field": "Hello"} });
+    expect(display).toStrictEqual({"displayData": [{
+                            "type": "text",
+                            "display": "title",
+                            "text": "This is the page for testing data."
+                        },
+                        {
+                            "type": "extended",
+                            "text": "Extended display render!!"
+                        },
+                        {
+                            "type": "button",
+                            "label": "Save Data",
+                            "action_id": "saveButton"
+                        },
+                        {
+                            "type": "button",
+                            "label": "State Data",
+                            "action_id": "stateButton"
+                        },
+                        {
+                            "type": "button",
+                            "label": "Extension",
+                            "action_id": "extensionButton"
+                        },
+                        {
+                            "answers": [
+                                {
+                                "option": "a.  to get to the other side",
+                                "value": "A",
+                                },
+                                {
+                                "option": "",
+                                "value": "B",
+                                },
+                                {
+                                "option": "c. better view of the mountains",
+                                "value": "",
+                                },
+                            ],
+                            "form": "Test Form",
+                            "form-id": "question",
+                            "question": "This is the question title ",
+                            "type": "multiple-choice",
+                        },
+                        {
+                            "type": "bar-chart",
+                            "title": "Lunch survey results ",
+                            "bars": [
+                                {"label": "", "count": "" },
+                                {"label": "French cafe", "count": "14"},
+                                {"label": "Pizza parlour", "count": "72"}
+                            ]
+                        },
+                        {
+                            "type": "donut-chart",
+                            "title": "Lunch survey  results",
+                            "slices": [
+                                {"label": "Chicken restaurant", "count": "53"},
+                                {"label": " cafe", "count": "14"},
+                                {"label": "Pizza parlour", "count": ""}
+                            ]
+                        },
+                        {
+                            "type": "basic-table",
+                            "title": "Menu ",
+                            "border": true,
+                            "header": [
+                                {"column1": "Name ", "order": "1" },
+                                {"column1": "Description", "order": "2" },
+                                {"column1": "Price", "order": "3" }
+                            ],
+                            "rows": [
+                                {"column1": "Salad", "column2": "Lettuce and tomato", "column3": "$5.99"},
+                                {"column1": "Meat ", "column2": "Ham ", "column3": "$15.99"},
+                                {"column1": "Cake", "column2": "Chocolate", "column3": ""}
+                            ]
+                        },
+                        {
+                            "type": "gauge",
+                            "title": "Progress ",
+                            "value": "",
+                            "min": "",
+                            "max": ""
+                        },                                                                        
+                        {
+                            "type": "card",
+                            "title": "Special ",
+                            "text": "This is the text that appears in a card ."
+                        },
+                        {
+                            "type": "timeline",
+                            "title": "Roadmap to the  future",
+                            "entries": [
+                                {"order": "1", "entry": "Day 1  ", "text": "Write a  list"},
+                                {"order": "2", "entry": "", "text": ""},
+                                {"order": "3", "entry": "Year 2", "text": "Check off the tasks"},
+                                {"order": "4", "entry": "Year 3", "text": "Bask in glory"}
+                            ]
+                        },                        
+                        {
+                            "form": "Save Form",
+                            "type": "text-field",
+                            "label": "Field one",
+                            "value": "",
+                            "form-id": "save-field"
+                        },                        
+                        {
+                            "form": "Save Form",
+                            "type": "text-field",
+                            "label": "Field two",
+                            "value": "",
+                            "form-id": "save-field2"
+                        },                        
+                        {
+                            "type": "button",
+                            "label": "Go back",
+                            "action_id": "backButton"
+                        }
+    ], "workflowID": "root-menu"});
+});
+
+it('save mobile data', async () => {
+    console.log("~~~ Start Test 6 - save mobile data");
+    const display = await testParser.parse("TestPersonID", {workflowID: "root-menu", actionID: "stateButton", data: {"Date": "Today", "Test": "This is test data"} });
+    expect(display).toStrictEqual({"displayData": [{
+                            "type": "text",
+                            "display": "title",
+                            "text": "This is the page for testing data."
+                        },
+                        {
+                            "type": "text",
+                            "text": "Date=Today",
+                            "condition": "instance?.state_data?.Date!=undefined"
+                        },                        
+                        {
+                            "type": "extended",
+                            "text": "Extended display render!!"
+                        },
+                        {
+                            "type": "button",
+                            "label": "Save Data",
+                            "action_id": "saveButton"
+                        },
+                        {
+                            "type": "button",
+                            "label": "State Data",
+                            "action_id": "stateButton"
+                        },
+                        {
+                            "type": "button",
+                            "label": "Extension",
+                            "action_id": "extensionButton"
+                        },
+                        {
+                            "answers": [
+                                {
+                                "option": "a. Today to get to the other side",
+                                "value": "A",
+                                },
+                                {
+                                "option": "Today",
+                                "value": "B",
+                                },
+                                {
+                                "option": "c. better view of the mountains",
+                                "value": "Today",
+                                },
+                            ],
+                            "form": "Test Form",
+                            "form-id": "question",
+                            "question": "This is the question title Today",
+                            "type": "multiple-choice",
+                        },
+                        {
+                            "type": "bar-chart",
+                            "title": "Lunch survey results Today",
+                            "bars": [
+                                {"label": "Today", "count": "Today" },
+                                {"label": "French cafe", "count": "14"},
+                                {"label": "Pizza parlour", "count": "72"}
+                            ]
+                        },
+                        {
+                            "type": "donut-chart",
+                            "title": "Lunch survey Today results",
+                            "slices": [
+                                {"label": "Chicken restaurant", "count": "53"},
+                                {"label": "Today cafe", "count": "14"},
+                                {"label": "Pizza parlour", "count": "Today"}
+                            ]
+                        },
+                        {
+                            "type": "basic-table",
+                            "title": "Menu Today",
+                            "border": true,
+                            "header": [
+                                {"column1": "Name Today", "order": "1" },
+                                {"column1": "Description", "order": "2" },
+                                {"column1": "Price", "order": "3" }
+                            ],
+                            "rows": [
+                                {"column1": "Salad", "column2": "Lettuce and tomato", "column3": "$5.99"},
+                                {"column1": "Meat Today", "column2": "Ham Today", "column3": "$15.99"},
+                                {"column1": "Cake", "column2": "Chocolate", "column3": "Today"}
+                            ]
+                        },                                                
+                        {
+                            "type": "gauge",
+                            "title": "Progress Today",
+                            "value": "Today",
+                            "min": "Today",
+                            "max": "Today"
+                        },
+                        {
+                            "type": "card",
+                            "title": "Special Today",
+                            "text": "This is the text that appears in a card Today."
+                        },
+                        {
+                            "type": "timeline",
+                            "title": "Roadmap to the Today future",
+                            "entries": [
+                                {"order": "1", "entry": "Day 1 Today ", "text": "Write a Today list"},
+                                {"order": "2", "entry": "Today", "text": "Today"},
+                                {"order": "3", "entry": "Year 2", "text": "Check off the tasks"},
+                                {"order": "4", "entry": "Year 3", "text": "Bask in glory"}
+                            ]
+                        },                       
+                        {
+                            "form": "Save Form",
+                            "type": "text-field",
+                            "label": "Field one",
+                            "value": "",
+                            "form-id": "save-field"
+                        },                        
+                        {
+                            "form": "Save Form",
+                            "type": "text-field",
+                            "label": "Field two",
+                            "value": "Today",
+                            "form-id": "save-field2"
+                        },                        
+                        {
+                            "type": "button",
+                            "label": "Go back",
+                            "action_id": "backButton"
+                        }
+    ], "workflowID": "root-menu"});
+});
+
+it('return to menu', async () => {
+    console.log("~~~ Start Test 7 - return to menu");
+    const display = await testParser.parse("TestPersonID", {workflowID: "root-menu", actionID: "backButton", data: {} });
+    expect(display).toStrictEqual({"displayData": [{"type": "image", "url": "http://image.com/image.png"}, {"display": "title", "text": "This is the test for workflow", "type": "text"}, {"action_id": "nextButton", "label": "Next button", "type": "button"}, {"action_id": "dataButton", "label": "Data button", "type": "button"}, {"action_id": "workflowButton", "label": "Workflow button", "type": "button"}], "workflowID": "root-menu"});
+});
 
 /*
 async function runtests(): Promise<void> {
