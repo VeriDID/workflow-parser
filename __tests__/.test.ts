@@ -122,7 +122,7 @@ it('Get the default state from the workflow', async () => {
     await setup();
     console.log("*** Start test");
     const display = await testParser.parse("TestPersonID", {workflowID: "root-menu", actionID: "", data: {} });    
-    expect(display).toStrictEqual({"displayData": [{"type": "image", "url": "http://image.com/image.png"}, {"display": "title", "text": "This is the test for workflow", "type": "text"}, {"condition": "instance?.state_data?.first==undefined", "text": "First time showing this page", "type": "text"}, {"action_id": "nextButton", "label": "Next button", "type": "button"}, {"action_id": "dataButton", "label": "Data button", "type": "button"}, {"action_id": "workflowButton", "label": "Workflow button", "type": "button"}], "workflowID": "root-menu"});
+    expect(display).toStrictEqual({"displayData": [{"type": "image", "url": "http://image.com/image.png"}, {"display": "title", "text": "This is the test for workflow, with a comma", "type": "text"}, {"condition": "instance?.state_data?.first==undefined", "text": "First time showing this page", "type": "text"}, {"action_id": "nextButton", "label": "Next button", "type": "button"}, {"action_id": "dataButton", "label": "Data button", "type": "button"}, {"action_id": "workflowButton", "label": "Workflow button", "type": "button"}], "workflowID": "root-menu"});
 });
 
 it('Got to page1', async () => {
@@ -133,7 +133,7 @@ it('Got to page1', async () => {
 it('return from Page1 to menu', async () => {
     console.log("~~~ Start Test 3 - return from Page1 to menu");
     const display = await testParser.parse("TestPersonID", {workflowID: "root-menu", actionID: "backButton", data: {} });
-    expect(display).toStrictEqual({"displayData": [{"type": "image", "url": "http://image.com/image.png"}, {"display": "title", "text": "This is the test for workflow", "type": "text"}, {"action_id": "nextButton", "label": "Next button", "type": "button"}, {"action_id": "dataButton", "label": "Data button", "type": "button"}, {"action_id": "workflowButton", "label": "Workflow button", "type": "button"}], "workflowID": "root-menu"});
+    expect(display).toStrictEqual({"displayData": [{"type": "image", "url": "http://image.com/image.png"}, {"display": "title", "text": "This is the test for workflow, with a comma", "type": "text"}, {"action_id": "nextButton", "label": "Next button", "type": "button"}, {"action_id": "dataButton", "label": "Data button", "type": "button"}, {"action_id": "workflowButton", "label": "Workflow button", "type": "button"}], "workflowID": "root-menu"});
 });
 
 it('go to page 2', async () => {
@@ -516,7 +516,7 @@ it('save mobile data', async () => {
 it('return to menu', async () => {
     console.log("~~~ Start Test 7 - return to menu");
     const display = await testParser.parse("TestPersonID", {workflowID: "root-menu", actionID: "backButton", data: {} });
-    expect(display).toStrictEqual({"displayData": [{"type": "image", "url": "http://image.com/image.png"}, {"display": "title", "text": "This is the test for workflow", "type": "text"}, {"action_id": "nextButton", "label": "Next button", "type": "button"}, {"action_id": "dataButton", "label": "Data button", "type": "button"}, {"action_id": "workflowButton", "label": "Workflow button", "type": "button"}], "workflowID": "root-menu"});
+    expect(display).toStrictEqual({"displayData": [{"type": "image", "url": "http://image.com/image.png"}, {"display": "title", "text": "This is the test for workflow, with a comma", "type": "text"}, {"action_id": "nextButton", "label": "Next button", "type": "button"}, {"action_id": "dataButton", "label": "Data button", "type": "button"}, {"action_id": "workflowButton", "label": "Workflow button", "type": "button"}], "workflowID": "root-menu"});
 });
 
 /*

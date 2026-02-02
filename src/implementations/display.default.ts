@@ -158,7 +158,7 @@ export class DefaultDisplay implements IDisplay {
 
     parseString(text: string, data: any) {
         // Split out the string
-        const parts = text.split(/[{,}]/);
+        const parts = text.split(/[{}]/);
         // check every other string segment looking for a key in data
         // Text for parsing should not start with a variable "{variable} hello!"
         // *** repalce this code with a more comprehensive parser

@@ -19,7 +19,7 @@
                         {
                             "type": "text",
                             "display": "title",
-                            "text": "This is the test for workflow"
+                            "text": "This is the test for workflow, with a comma"
                         },
                         {
                             "type": "text",
